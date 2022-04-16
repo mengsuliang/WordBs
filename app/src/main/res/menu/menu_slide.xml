@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/userINfo"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="个人中心">
+    </item>
+
+    <item
+        android:id="@+id/updatePass"
+        android:icon="@drawable/ic_baseline_edit_24"
+        android:title="修改密码">
+    </item>
+
+    <item
+        android:id="@+id/remind"
+        android:icon="@drawable/ic_baseline_timer_24"
+        android:title="时间提醒">
+    </item>
+
+    <item
+        android:id="@+id/about"
+        android:icon="@drawable/ic_baseline_info_24"
+        android:title="关于作者">
+    </item>
+
+    <item android:id="@+id/loginout"
+        android:icon="@drawable/ic_baseline_exit_to_app_24"
+        android:title="退出登录">
+    </item>
+
+</menu>

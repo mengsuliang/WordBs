@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/recite"
+        android:title="@string/背词"
+        android:icon="@drawable/icon_bottom_home"
+        />
+
+    <item android:id="@+id/review"
+        android:title="@string/复习"
+        android:icon="@drawable/icon_bottom_review"
+        />
+
+    <item android:id="@+id/word_lib"
+        android:title="@string/词库"
+        android:icon="@drawable/icon_bottom_wordbook"
+        />
+
+    <item android:id="@+id/challenge"
+        android:title="@string/挑战"
+        android:icon="@drawable/ic_baseline_emoji_events_24"
+        />
+
+</menu>
