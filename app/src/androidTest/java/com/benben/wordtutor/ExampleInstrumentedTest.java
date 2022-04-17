@@ -10,6 +10,11 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
+import com.benben.wordtutor.utils.ImportJsonUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * Instrumented test, which will execute on an Android device.
  *
@@ -22,6 +27,12 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.benbenzn.canting", appContext.getPackageName());
+        try {
+            InputStream open = appContext.getApplicationContext().getAssets().open("format_PEPXiaoXue3_1.json");
+            ImportJsonUtils.importData(open,"test11",appContext);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println();
     }
 }

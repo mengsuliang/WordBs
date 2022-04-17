@@ -48,7 +48,7 @@ android {
     applicationVariants.all {
         variant ->
         variant.outputs.all {
-            outputFileName = getAppName()+defaultConfig.versionName + ".apk"
+            outputFileName = getAppName()+"-"+defaultConfig.versionName + ".apk"
         }
     }
 
@@ -76,11 +76,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-
     //引入ButterKnife
     implementation "com.jakewharton:butterknife:10.0.0"
     annotationProcessor "com.jakewharton:butterknife-compiler:10.0.0"
     api 'com.google.android.material:material:1.1.0-alpha06'
+    //引入了gson
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation("com.squareup.okhttp3:okhttp:4.4.0")
     //引入数据库框架 litpal

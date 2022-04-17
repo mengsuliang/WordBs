@@ -163,6 +163,14 @@ public class Word implements Serializable {
         return "Word{" +
                 "_id=" + _id +
                 ", wordRank=" + wordRank +
+                ", headWord='" + headWord + '\'' +
+                ", sentences='" + sentences + '\'' +
+                ", usphone='" + usphone + '\'' +
+                ", ukphone='" + ukphone + '\'' +
+                ", syno='" + syno + '\'' +
+                ", phrases='" + phrases + '\'' +
+                ", tranCN='" + tranCN + '\'' +
+                ", tranEN='" + tranEN + '\'' +
                 ", wordType='" + wordType + '\'' +
                 '}';
     }
