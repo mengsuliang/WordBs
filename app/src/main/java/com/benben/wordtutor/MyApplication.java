@@ -47,7 +47,8 @@ public class MyApplication extends Application {
         Hawk.init(context).build();
         initMainFragment();
 
-        initLitpal();
+
+        //initLitpal();
 
 
         initUserInfo();
@@ -93,9 +94,9 @@ public class MyApplication extends Application {
 
 
 
-    private void initLitpal() {
-        LitePal.initialize(this);
-    }
+//    private void initLitpal() {
+//        LitePal.initialize(this);
+//    }
 
 
 

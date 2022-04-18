@@ -8,7 +8,7 @@ def getAppVersionName() {
 }
 
 def getAppName(){
-    return "背单词"
+    return "Word"
 }
 
 android {
