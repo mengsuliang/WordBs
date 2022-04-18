@@ -191,8 +191,8 @@ public class WordReviewActivity extends AppCompatActivity implements View.OnClic
      * 设置选项
      */
     private void setword(Word word) {
-        currentNum++;
         mTodayNeedReviewCount.setText(currentNum+"");
+        currentNum++;
 
         mWordText.setText(word.getHeadWord());
         mUkPhonetic.setText(word.getUkphone());

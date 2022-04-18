@@ -5,6 +5,7 @@
         android:icon="@drawable/icon_search_main"
         android:id="@+id/search_main"
         app:showAsAction="always"
-        android:title="search"></item>
+        android:title="search">
+    </item>
 
 </menu>

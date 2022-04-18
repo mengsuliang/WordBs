@@ -25,16 +25,14 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent">
+        </TextView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_difficult"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-
-
+            android:layout_height="wrap_content">
+        </androidx.recyclerview.widget.RecyclerView>
 
         <View
             android:id="@+id/line1"

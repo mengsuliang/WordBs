@@ -69,14 +69,12 @@ public class ChallengeWordActivity extends AppCompatActivity implements View.OnC
         mTvTitle = findViewById(R.id.tv_title);
         mIvBack = findViewById(R.id.iv_back);
 
-
         mTvScore = findViewById(R.id.tvScore);
         mTvPosi = findViewById(R.id.tv_posi);
         mTvTime = findViewById(R.id.tv_time);
 
         mIvBack.setVisibility(View.VISIBLE);
         mIvBack.setOnClickListener(this);
-
 
         //初始化按钮
         mWordText = findViewById(R.id.word_text);

@@ -50,7 +50,7 @@ public class MemoryWordMainActivity extends AppCompatActivity implements View.On
     private AudioMediaPlayer audioMediaPlayer;//播放音频类
     private Word nowword; //当前正在背诵的单词
     private LocalTrueFalseMediaPlayer localTrueFalseMediaPlayer;//提示音类
-
+    private int currentNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,6 @@ public class MemoryWordMainActivity extends AppCompatActivity implements View.On
         mIvBack = findViewById(R.id.iv_back);
         mIvBack.setVisibility(View.VISIBLE);
         mIvBack.setOnClickListener(this);
-
 
         //初始化按钮
         mWordText = findViewById(R.id.word_text);
@@ -80,14 +79,12 @@ public class MemoryWordMainActivity extends AppCompatActivity implements View.On
         //给按钮添加监听
         radioGroup.setOnCheckedChangeListener(this);
 
-
         radioButtonsgroups[0] = radioOne;
         radioButtonsgroups[1] = radioTwo;
         radioButtonsgroups[2] = radioThree;
         radioButtonsgroups[3] = radioFour;
         mTodayNeedNewCount = findViewById(R.id.today_neednewCount);
         mTodayNeedReviewCount = findViewById(R.id.today_needreviewCount);
-
 
         //初始化数据库操作
         wordDao = new WordDao(this);
@@ -109,6 +106,7 @@ public class MemoryWordMainActivity extends AppCompatActivity implements View.On
         int todayNeedNewNum = studyRecord.getNeedNewNum() - studyRecord.getNewNum();
         mTodayNeedNewCount.setText(todayNeedNewNum +"");
         int todayNeedReviewcount = studyRecord.getNeedRepeatNum() - studyRecord.getRepeatNum();//今日还需复习的单词数量
+        currentNum = todayNeedReviewcount;
         mTodayNeedReviewCount.setText(todayNeedReviewcount+"");
         //获取需要新背的单词
         mWords = wordDao.getWords(start, todayNeedNewNum);
@@ -166,6 +164,9 @@ public class MemoryWordMainActivity extends AppCompatActivity implements View.On
      * 设置选项
      */
     private void setword(Word word) {
+        mTodayNeedReviewCount.setText(currentNum+"");
+        currentNum--;
+
         mWordText.setText(word.getHeadWord());
         mUkPhonetic.setText(word.getUkphone());
         mUsPhonetic.setText(word.getUsphone());

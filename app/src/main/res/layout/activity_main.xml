@@ -23,6 +23,7 @@
             android:elevation="3dp"
             app:navigationIcon="@drawable/icon_menu_side"
             style="@style/Toolbar_style">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,6 +80,16 @@
         app:menu="@menu/menu_slide"
         app:theme="@style/myNavigationDrawerStyle"
         app:headerLayout="@layout/slide_nav_header">
+
+        <ImageView
+            android:id="@+id/drawer_page"
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="@dimen/dp_150"
+            android:background="@drawable/icon3"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="@dimen/dp_20">
+        </ImageView>
+
     </com.google.android.material.navigation.NavigationView>
 
 

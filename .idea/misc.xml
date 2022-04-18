@@ -16,6 +16,8 @@
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/activity_confirm_order.xml" value="0.22192028985507245" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/activity_crop.xml" value="0.22192028985507245" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/activity_edit_base_info.xml" value="0.22192028985507245" />
+        <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/activity_file.xml" value="0.21105072463768115" />
+        <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/activity_file_import.xml" value="0.21693840579710144" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/activity_guide.xml" value="0.22192028985507245" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/activity_history_order.xml" value="0.22192028985507245" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/activity_login.xml" value="0.22192028985507245" />
@@ -48,10 +50,13 @@
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/dialog_selecte_uploadaction.xml" value="0.22192028985507245" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/dialog_subcate_edit.xml" value="0.22192028985507245" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/dialog_wait_layout.xml" value="0.22192028985507245" />
+        <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/dialog_wordbook_edit.xml" value="0.18840579710144928" />
+        <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/dialog_wordbook_import.xml" value="0.18840579710144928" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/diancan_fragment.xml" value="0.22192028985507245" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/empty_view.xml" value="0.22192028985507245" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/fragment_blank_fragment2.xml" value="0.22192028985507245" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/fragment_completed_order.xml" value="0.22192028985507245" />
+        <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/fragment_home.xml" value="0.18840579710144928" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/fragment_message.xml" value="0.22192028985507245" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/fragment_mine.xml" value="0.22192028985507245" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/fragment_order.xml" value="0.21829710144927536" />
@@ -89,9 +94,11 @@
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/word_select_layout.xml" value="0.22192028985507245" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/wordbook_edit_dialog.xml" value="0.22192028985507245" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/wordbook_fragment.xml" value="0.21829710144927536" />
+        <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/wordbook_import_dialog.xml" value="0.21105072463768115" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/layout/wordcard_challenge_layout.xml" value="0.22192028985507245" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.24947916666666667" />
         <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/menu/menu_slide.xml" value="0.24947916666666667" />
+        <entry key="..\:/ASproject/WorkSpance/wordbs/app/src/main/res/menu/menu_toolbar.xml" value="0.24947916666666667" />
       </map>
     </option>
   </component>

@@ -30,7 +30,7 @@ android {
     buildToolsVersion "30.0.0"
     defaultConfig {
         applicationId "com.benben.wordtutor2"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName getAppVersionName()
@@ -130,5 +130,8 @@ dependencies {
     implementation 'com.github.wangjiegulu:rfab:2.0.0'
     implementation 'com.nikhilpanju.recyclerviewenhanced:recyclerviewenhanced:1.1.0'//侧滑菜单
 
+    //引入文件选择器
+    implementation 'com.github.zzy0516alex:FileSelectorRelease:v3.0'
+    implementation 'com.hz.android.fileselectorview:library:1.3'
 
 }

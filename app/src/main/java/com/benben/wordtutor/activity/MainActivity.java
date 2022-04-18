@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,8 @@ import com.benben.wordtutor.fragment.HomeFragment;
 import com.benben.wordtutor.model.User;
 import com.benben.wordtutor.utils.Api;
 import com.benben.wordtutor.utils.DialogUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.navigation.NavigationView;
@@ -58,7 +61,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private TextView mTvSelect;
     private TextView mTvWordType;
-
+    private ImageView drawerImgView;
 
     private ScoreDao scoreDao;
     private UserDao userDao;
@@ -76,8 +79,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         bottomNavigation.setOnNavigationItemSelectedListener(mNavigationListener);
 
         settingDao = new SettingDao(this);
-
-
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -134,6 +135,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             public void onClick(View v) {
                 Log.d(TAG, "onClick: 点击了导航 == ");
                 drawerLayout.openDrawer(Gravity.LEFT);
+                //加载侧滑页GIF动图
+//                Glide.with(v)
+//                        .load(R.drawable.img_gif2)
+//                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+//                        .into(drawerImgView);
             }
         });
 
@@ -141,12 +147,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         wordType.setText(settingDao.getDifficulty());
         mTvSelect = findViewById(R.id.select);
         mTvWordType = findViewById(R.id.wordType);
+        drawerImgView = findViewById(R.id.drawer_page);
         mTvSelect.setOnClickListener(this);
         mTvWordType.setOnClickListener(this);
 
         initApp();
-
-
 
         //查询用户并创建分数
         userDao = new UserDao(this);
@@ -177,14 +182,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             Log.d(TAG, "createScoreTable: 执行了创建成绩表...");
         }
 
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            //case R.id.wordtype:
             case R.id.select:
-            case R.id.wordType:
                 DialogUtils.showEditSubCateDialog(this,"选择难度","",
                         "确定","取消",new DialogUtils.ISubCateDialogClickListener(){
                             @Override
@@ -221,8 +225,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         if(event!=null){
             switch (event.getType()){
                 case "login_success":
-
-
                     Hawk.put(Api.USER_TOKEN_KEY, Api.TOKEN);
                     break;
             }

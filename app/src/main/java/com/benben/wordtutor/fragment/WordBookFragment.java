@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.benben.wordtutor.R;
+import com.benben.wordtutor.activity.FileImportActivity;
 import com.benben.wordtutor.activity.WordListActivity;
 import com.benben.wordtutor.adapter.WordBookAdapter;
 import com.benben.wordtutor.dao.SettingDao;
@@ -58,13 +59,13 @@ public class WordBookFragment extends BaseFragment {
         mRvWordBook.setLayoutManager(layoutManager);
         bookList = getData();
 
-        //通过指定模板格式导入单词本
+        //导入单词本
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),"开发中…",Toast.LENGTH_SHORT).show();
-                //打开本地文件添加模板
-
+                //跳转文件选择器，导入单词本（模板文件）
+                Intent intent = new Intent(getContext(), FileImportActivity.class);
+                getContext().startActivity(intent);
             }
         });
 
@@ -88,10 +89,10 @@ public class WordBookFragment extends BaseFragment {
                 Vibrator vibrator = (Vibrator) getContext().getSystemService(getContext().VIBRATOR_SERVICE);//震动功能
                 vibrator.vibrate(150);//震动时间
                 LayoutInflater inflater = getLayoutInflater();
-                View dialog = inflater.inflate(R.layout.wordbook_edit_dialog, (ViewGroup) view.findViewById(R.id.dialog), false);
-                final EditText editText = (EditText) dialog.findViewById(R.id.text_name);
-                final EditText contextText = (EditText) dialog.findViewById(R.id.text_context);
-                final ImageView delete = dialog.findViewById(R.id.delete);
+                View dialog = inflater.inflate(R.layout.dialog_wordbook_edit, (ViewGroup) view.findViewById(R.id.dialog), false);
+                EditText editText = (EditText) dialog.findViewById(R.id.text_name);
+                EditText contextText = (EditText) dialog.findViewById(R.id.text_context);
+                ImageView delete = dialog.findViewById(R.id.delete);
                 WordType wordType = wordTypeDao.find(bookList.get(position).title);
                 editText.setText(wordType.getWordType());
                 contextText.setText(wordType.getContext());
@@ -101,7 +102,7 @@ public class WordBookFragment extends BaseFragment {
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (editText.getText().toString() != "") {
+                        if (!editText.getText().toString().isEmpty()) {
                             WordType wordType = new WordType(editText.getText().toString(), contextText.getText().toString(), 0);
                             WordTypeDao wordTypeDao = new WordTypeDao(getContext());
                             String title = bookList.get(position).title;
@@ -111,7 +112,7 @@ public class WordBookFragment extends BaseFragment {
                             bookList.addAll(getData());
                             wordBookAdapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(getContext(), "单词本名称不能为空", Toast.LENGTH_SHORT);
+                            Toast.makeText(getContext(), "单词本名称不能为空！", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).setNegativeButton("取消", null);
@@ -181,4 +182,5 @@ public class WordBookFragment extends BaseFragment {
         return mData;
 
     }
+
 }

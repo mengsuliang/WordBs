@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,8 @@ import com.benben.wordtutor.listener.IDialogBtnClickCallBack;
 import com.benben.wordtutor.model.StudyRecord;
 import com.benben.wordtutor.utils.Api;
 import com.benben.wordtutor.utils.DialogUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private static final String TAG = "HomeFragment";
@@ -33,6 +36,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private WordDao wordDao;
     private WordRecordDao wordRecordDao;
     private StudyRecordDao studyRecordDao;
+    private ImageView homePageImgView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +59,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mTvNoStudy = view.findViewById(R.id.tv_nostudy);
         mTvNeedReview = view.findViewById(R.id.tv_needreview);
         mBtnStart = view.findViewById(R.id.btn_start);
+        homePageImgView = view.findViewById(R.id.home_page);
+
+        mTvNoStudy.setOnClickListener(this);
         mBtnStart.setOnClickListener(this);
 
         initData();
@@ -82,6 +89,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mTvNoStudy.setText(todayNeedNewNum +"");
         mTvNeedReview.setText(typeReWordCount+"");
 
+        //加载首页GIF动图
+        Glide.with(this)
+                .load(R.drawable.img_gif1)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .into(homePageImgView);
 
         String hasYestoday = studyRecordDao.isHasYestodayData();
         if(hasYestoday!=null && !Api.isShowReview){
@@ -94,7 +106,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                             String nowDate = hasYestoday;
                             intent.putExtra("date",nowDate);
                             getActivity().startActivity(intent);
-
                         }
 
                         @Override
@@ -114,6 +125,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.btn_start:
                 intent.setClass(getContext(), MemoryWordMainActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.tv_nostudy:
+
                 break;
         }
     }

@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +20,6 @@ import com.benben.wordtutor.dao.SettingDao;
 import com.benben.wordtutor.dao.WordDao;
 import com.benben.wordtutor.dao.WordTypeDao;
 import com.benben.wordtutor.listener.IDialogBtnClickCallBack;
-import com.benben.wordtutor.listener.ISubCateDialogClickListener;
 import com.benben.wordtutor.model.WordBookEntity;
 import com.benben.wordtutor.model.WordType;
 
@@ -105,11 +103,7 @@ public class DialogUtils {
             }
         });
 
-
-
         dialog.show();
-
-
     }
 
     public static ArrayList<WordBookEntity> getData(Context context) {

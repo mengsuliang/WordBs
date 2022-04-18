@@ -4,13 +4,15 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/word_book"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:elevation="1dp"
-        app:cardCornerRadius="20dp">
+        android:elevation="2dp"
+        app:cardCornerRadius="10dp">
+
         <net.wujingchao.android.view.SimpleTagImageView
             xmlns:simple="http://schemas.android.com/apk/res-auto"
             android:id="@+id/word_book_cover"
@@ -25,16 +27,18 @@
             simple:simple_tag_width="17dip"
             simple:simple_tag_textColor="@android:color/white"
             simple:simple_tag_enable="true"
-            simple:simple_tag_round_radius="20dp"
-            ></net.wujingchao.android.view.SimpleTagImageView>
+            simple:simple_tag_round_radius="20dp">
+        </net.wujingchao.android.view.SimpleTagImageView>
+
         <TextView
             android:id="@+id/word_book_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="四级"
-            android:layout_marginLeft="20dp"
+            android:gravity="center"
             android:textSize="16sp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold">
+        </TextView>
 
     </androidx.cardview.widget.CardView>
 

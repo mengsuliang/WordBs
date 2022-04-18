@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.benben.wordtutor">
-    <!-- 声明可以使用相机硬件设备 -->
+    <!-- 蓝牙权限 -->
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -13,6 +13,9 @@
         android:roundIcon="@mipmap/ic_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.FileImportActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.AlarmActivity"
             android:exported="false" />
@@ -33,11 +36,9 @@
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
             android:configChanges="orientation|screenSize"
             android:label="选择图片" />
-
         <activity
             android:name=".activity.LoginActivity"
             android:launchMode="singleInstance" />
-
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,9 +53,7 @@
             android:name=".activity.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask" />
-        <activity android:name=".activity.RingActivity">
-
-        </activity>
+        <activity android:name=".activity.RingActivity"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -126,30 +125,31 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-    </application> <!-- 蓝牙权限 -->
+    </application>
+
     <permission
         android:name="com.benben.wordtutor.permission.MIPUSH_RECEIVE"
         android:protectionLevel="signature" />
+
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="true" />
-    <uses-permission android:name="android.permission.BLUETOOTH" /> <!-- 8.0系统以上安装apk 需要静态授权 -->
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- android10.0系统兼容配置 -->
+        android:required="true" /> <!-- 8.0系统以上安装apk 需要静态授权 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> <!-- android10.0系统兼容配置 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" /> <!-- android10.0系统兼容配置 -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> <!-- android10.0系统兼容配置 -->
     <!-- 小米推送服务权限 -->
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-
-    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 这里com.xiaomi.mipushdemo改成app的包名 -->
-    <uses-permission android:name="com.benben.wordtutor.permission.MIPUSH_RECEIVE" /> <!-- 图片选择需要的权限 -->
+    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- 这里com.xiaomi.mipushdemo改成app的包名 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 图片选择需要的权限 -->
+    <uses-permission android:name="com.benben.wordtutor.permission.MIPUSH_RECEIVE" />
     <uses-permission android:name="com.benbenzn.canting.permission.MIPUSH_RECEIVE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
