@@ -2,17 +2,14 @@ package com.benben.wordtutor.utils;
 
 public class Api {
 
-            public static final String baseUrl = "";
-
-    public static final String api_getHomeMenu = ""; //查询菜单
+    public static final String baseUrl = "";
     public static  boolean isShowReview =false; //是否弹出了复习提醒
-
-
-
-
     public static String TOKEN = "";
     public static final String USER_TOKEN_KEY = "";
     public static final String USER_ID_KEY = "";
+/*
+以下属于api请求常量，可忽略
+    public static final String api_getHomeMenu = ""; //查询菜单
     public static String api_create_order = "";//创建订单
     public static String api_getCateMenu = ""; //获取分类列表 用于管理分类页面
     public static String api_add_menucate = "api/mergeMenu"; //添加菜单分类
@@ -36,13 +33,14 @@ public class Api {
     public static final String API_APP_VERSION = "api/appVersion";//获取版本信息
 
     public static final String REQUEST_MSG_INFO = "api/messageInfo";//请求消息模块的信息
-
+*/
 
     public static boolean isRegister = false;
     //用户id
     public static int userId = 0;
     //历史最高成绩
     public static int maxScore;
+
     //全部分页规定每页显示10条数据
     public static final int pageSize = 10;
 
