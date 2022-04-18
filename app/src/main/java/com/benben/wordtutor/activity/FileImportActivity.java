@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.benben.wordtutor.R;
 import com.benben.wordtutor.fragment.WordBookFragment;
+import com.benben.wordtutor.receiver.BookListReceiver;
 import com.benben.wordtutor.utils.ImportJsonUtils;
 import com.hz.android.fileselector.FileSelectorView;
 
@@ -63,6 +64,7 @@ public class FileImportActivity extends AppCompatActivity {
                             Toast.makeText(FileImportActivity.this, "导入成功！" , Toast.LENGTH_SHORT).show();
 
                             Log.d("333:", "onClick: "+11);
+                            setResult(1);
                             finish();
                         }else {
                             Toast.makeText(FileImportActivity.this, "单词本名称不能为空！", Toast.LENGTH_SHORT).show();

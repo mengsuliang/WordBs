@@ -104,13 +104,13 @@
                 <action android:name="com.benben.wordtutor.RING" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".receiver.BookListReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.benben.wordtutor.BookList"/>
-            </intent-filter>
-        </receiver>
+<!--        <receiver android:name=".receiver.BookListReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.benben.wordtutor.BookList"/>-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
 
         <service
             android:name="com.xiaomi.push.service.XMPushService"

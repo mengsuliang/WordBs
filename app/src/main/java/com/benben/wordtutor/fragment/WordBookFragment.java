@@ -47,20 +47,12 @@ public class WordBookFragment extends BaseFragment {
     private WordBookAdapter wordBookAdapter;
     private AlertDialog.Builder builder;//添加单词本对话框
     private FloatingActionButton floatingActionButton;
-    private LocalBroadcastManager broadcastManager;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wordbook, container, false);
         mRvWordBook = view.findViewById(R.id.rv_wordbook);
-
-        //接收广播
-//        broadcastManager=LocalBroadcastManager.getInstance(getActivity());
-//
-//        IntentFilter intentFilter=new IntentFilter();
-//        intentFilter.addAction("action.refreshWordList");
-//        broadcastManager.registerReceiver(refreshReceuver,intentFilter);
 
         wordTypeDao = new WordTypeDao(getContext());
         settingDao = new SettingDao(getContext());
@@ -71,14 +63,13 @@ public class WordBookFragment extends BaseFragment {
         mRvWordBook.setLayoutManager(layoutManager);
         bookList = getData();
 
-
         //导入单词本
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //跳转文件选择器，导入单词本（模板文件）
                 Intent intent = new Intent(getContext(), FileImportActivity.class);
-                getContext().startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
 
@@ -168,9 +159,7 @@ public class WordBookFragment extends BaseFragment {
 
                     }
                 });
-
             }
-
 
         });
         mRvWordBook.setAdapter(wordBookAdapter);
@@ -182,7 +171,6 @@ public class WordBookFragment extends BaseFragment {
     protected View initView() {
         return null;
     }
-
 
     public ArrayList<WordBookEntity> getData() {
         ArrayList<WordBookEntity> mData = new ArrayList<>(0);
@@ -196,23 +184,21 @@ public class WordBookFragment extends BaseFragment {
 
     }
 
-//    BroadcastReceiver refreshReceuver=new BroadcastReceiver() {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            Log.d("222:", "refresh: ");
-//            refresh();
-//        }
-//    };
-//    public void refresh(){
-//        bookList.clear();
-//        bookList.addAll(getData());
-//
-//        wordBookAdapter.notifyDataSetChanged();
-//    }
-//
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        broadcastManager.unregisterReceiver(refreshReceuver);
-//    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i("Test1","-----------requestCode="+requestCode);
+        Log.i("Test1","-----------resultCode="+resultCode);
+        switch (resultCode){
+            case 1://添加词库后，在这里刷新recycleview
+                bookList.clear();
+                bookList.addAll(getData());
+                wordBookAdapter.notifyDataSetChanged();
+                break;
+            case 2:
+                break;
+        }
+
+    }
+
 }

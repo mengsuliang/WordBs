@@ -30,7 +30,7 @@ public class ImportJsonUtils {
 
     /**
      *
-     * @param filename 文件流 or 这里可以改写成文件路径
+     * @param filename 文件路径
      * @param wordType 词库类型 如CET4\CET6
      * @param context activity this活动上下文
      */
@@ -42,7 +42,7 @@ public class ImportJsonUtils {
         String json = "";
         System.out.println("111");
         try {
-           //如果提供的是路径，可以取消此处的注释，并new一个文件输入流
+           //如果提供的是路径，new一个文件输入流
             File file = new File(filename);
             FileInputStream fileInputStream = new FileInputStream(file);
             Reader reader = new InputStreamReader(fileInputStream, "utf-8");
