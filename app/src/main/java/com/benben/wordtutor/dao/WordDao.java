@@ -58,7 +58,7 @@ public class WordDao {
         values.put("tranCN",word.getTranCN());
         values.put("tranEN",word.getTranEN());
         values.put("wordType",word.getWordType());
-        db.insert("tb_word",null,values);
+        long word1 = db.insert("tb_word", null, values);
         //关闭数据库
         db.close();
         helper.close();

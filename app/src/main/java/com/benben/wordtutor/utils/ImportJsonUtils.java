@@ -6,7 +6,9 @@ import android.util.JsonReader;
 import android.util.Log;
 
 import com.benben.wordtutor.dao.WordDao;
+import com.benben.wordtutor.dao.WordTypeDao;
 import com.benben.wordtutor.model.Word;
+import com.benben.wordtutor.model.WordType;
 import com.benben.wordtutor.model.WordsBean;
 import com.google.gson.Gson;
 
@@ -34,6 +36,7 @@ public class ImportJsonUtils {
      */
     public static void importData(String filename, String wordType, Context context){
         WordDao wordDao=new WordDao(context);
+        WordTypeDao wordTypeDao=new WordTypeDao(context);
         Gson gson = new Gson();
         WordsBean wordsBean=null;
         String json = "";
@@ -41,26 +44,26 @@ public class ImportJsonUtils {
         try {
            //如果提供的是路径，可以取消此处的注释，并new一个文件输入流
             File file = new File(filename);
-            //Reader reader = new InputStreamReader(stream, "utf-8");
             FileInputStream fileInputStream = new FileInputStream(file);
+            Reader reader = new InputStreamReader(fileInputStream, "utf-8");
             int ch = 0;
             StringBuffer buffer = new StringBuffer();
-            while ((ch = fileInputStream.read()) != -1) {
+            while ((ch = reader.read()) != -1) {
                 buffer.append((char) ch);
             }
             fileInputStream.close();
+            reader.close();
             json = buffer.toString();
             Log.d("ImportJsonUtils:json", json);
-            //wordsBean = gson.fromJson(json, WordsBean.class);
-            JsonReader jsonReader = new JsonReader(new StringReader(json));
-            jsonReader.setLenient(true);
-            wordsBean = gson.fromJson(String.valueOf(jsonReader), WordsBean.class);
+            wordsBean = gson.fromJson(json, WordsBean.class);
 
         } catch (IOException e) {
             e.printStackTrace();
             return;
         }
         List<Word> words = wordsBean.getWords();
+        WordType wordType1 = new WordType(wordType, wordType, 0);
+        wordTypeDao.add(wordType1);
         for (Word word: words) {
             word.setWordType(wordType);
             wordDao.add(word); //添加到数据库中

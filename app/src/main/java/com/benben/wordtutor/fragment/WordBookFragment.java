@@ -1,7 +1,10 @@
 package com.benben.wordtutor.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,12 +47,20 @@ public class WordBookFragment extends BaseFragment {
     private WordBookAdapter wordBookAdapter;
     private AlertDialog.Builder builder;//添加单词本对话框
     private FloatingActionButton floatingActionButton;
+    private LocalBroadcastManager broadcastManager;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wordbook, container, false);
         mRvWordBook = view.findViewById(R.id.rv_wordbook);
+
+        //接收广播
+//        broadcastManager=LocalBroadcastManager.getInstance(getActivity());
+//
+//        IntentFilter intentFilter=new IntentFilter();
+//        intentFilter.addAction("action.refreshWordList");
+//        broadcastManager.registerReceiver(refreshReceuver,intentFilter);
 
         wordTypeDao = new WordTypeDao(getContext());
         settingDao = new SettingDao(getContext());
@@ -58,6 +70,7 @@ public class WordBookFragment extends BaseFragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);//设置为3列
         mRvWordBook.setLayoutManager(layoutManager);
         bookList = getData();
+
 
         //导入单词本
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -183,4 +196,23 @@ public class WordBookFragment extends BaseFragment {
 
     }
 
+//    BroadcastReceiver refreshReceuver=new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            Log.d("222:", "refresh: ");
+//            refresh();
+//        }
+//    };
+//    public void refresh(){
+//        bookList.clear();
+//        bookList.addAll(getData());
+//
+//        wordBookAdapter.notifyDataSetChanged();
+//    }
+//
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//        broadcastManager.unregisterReceiver(refreshReceuver);
+//    }
 }

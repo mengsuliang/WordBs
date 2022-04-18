@@ -3,7 +3,9 @@ package com.benben.wordtutor.activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Fragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.benben.wordtutor.R;
+import com.benben.wordtutor.fragment.WordBookFragment;
 import com.benben.wordtutor.utils.ImportJsonUtils;
 import com.hz.android.fileselector.FileSelectorView;
 
@@ -58,6 +61,8 @@ public class FileImportActivity extends AppCompatActivity {
                             Log.d("FileImoportActivity:filePath",selectedFile.getAbsolutePath());
                             ImportJsonUtils.importData( selectedFile.getAbsolutePath(),wordtype, FileImportActivity.this);
                             Toast.makeText(FileImportActivity.this, "导入成功！" , Toast.LENGTH_SHORT).show();
+
+                            Log.d("333:", "onClick: "+11);
                             finish();
                         }else {
                             Toast.makeText(FileImportActivity.this, "单词本名称不能为空！", Toast.LENGTH_SHORT).show();
