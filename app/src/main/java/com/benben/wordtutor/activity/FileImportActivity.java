@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,10 +16,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.benben.wordtutor.R;
+import com.benben.wordtutor.fragment.WordBookFragment;
 import com.benben.wordtutor.utils.ImportJsonUtils;
 import com.hz.android.fileselector.FileSelectorView;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class FileImportActivity extends AppCompatActivity {
 
@@ -56,9 +61,35 @@ public class FileImportActivity extends AppCompatActivity {
                         Log.d("FileImoportActivity",wordtype);
                         if (!wordtype.isEmpty()){
                             Log.d("FileImoportActivity:filePath",selectedFile.getAbsolutePath());
-                            ImportJsonUtils.importData( selectedFile.getAbsolutePath(),wordtype, FileImportActivity.this);
-                            Toast.makeText(FileImportActivity.this, "导入成功！" , Toast.LENGTH_SHORT).show();
-                            finish();
+                            if(selectedFile.exists()){
+                                //1。创建一个File类的对象
+                                //2.创建一个FileInputStream类的对象
+                                FileInputStream fis=null;
+                                try {
+                                    File file=new File(selectedFile.getAbsolutePath());
+                                    fis = new FileInputStream(file);
+                                    ImportJsonUtils.importData(fis,wordtype, FileImportActivity.this);
+                                    Intent intent = new Intent(FileImportActivity.this, WordBookFragment.class);
+                                    intent.setAction("com.benben.wordtutor.BookList");
+                                    sendBroadcast(intent);
+                                    Toast.makeText(FileImportActivity.this, "导入成功！" , Toast.LENGTH_SHORT).show();
+                                    finish();
+                                } catch (FileNotFoundException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                } finally{
+                                    //4.关闭响应的流
+                                    if(fis!=null){
+                                        try {
+                                            fis.close();
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                }
+                            }
                         }else {
                             Toast.makeText(FileImportActivity.this, "单词本名称不能为空！", Toast.LENGTH_SHORT).show();
                         }

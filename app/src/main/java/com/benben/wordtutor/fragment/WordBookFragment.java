@@ -43,6 +43,7 @@ public class WordBookFragment extends BaseFragment {
     private WordBookAdapter wordBookAdapter;
     private AlertDialog.Builder builder;//添加单词本对话框
     private FloatingActionButton floatingActionButton;
+    private String type;
 
     @Nullable
     @Override
@@ -50,6 +51,7 @@ public class WordBookFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_wordbook, container, false);
         mRvWordBook = view.findViewById(R.id.rv_wordbook);
 
+        type = getActivity().getIntent().getStringExtra("refresh");
         wordTypeDao = new WordTypeDao(getContext());
         settingDao = new SettingDao(getContext());
         wordDao = new WordDao(getContext());
@@ -70,6 +72,14 @@ public class WordBookFragment extends BaseFragment {
         });
 
         wordBookAdapter = new WordBookAdapter(getContext(), bookList);
+
+        //广播通知刷新adapter
+        if ("1".equals(type)){
+            bookList.clear();
+            bookList.addAll(getData());
+            wordBookAdapter.notifyDataSetChanged();
+        }
+
         wordBookAdapter.setOnItemListenerListener(new WordBookAdapter.OnItemListener() {
 
             //单击跳转到单词列表
@@ -81,6 +91,7 @@ public class WordBookFragment extends BaseFragment {
                 Intent intent = new Intent(getContext(), WordListActivity.class);
                 intent.putExtra("title", title);
                 getContext().startActivity(intent);
+
             }
 
             //长按编辑单词本
