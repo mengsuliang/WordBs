@@ -29,6 +29,7 @@ import com.benben.wordtutor.dao.SettingDao;
 import com.benben.wordtutor.dao.UserDao;
 import com.benben.wordtutor.fragment.HomeFragment;
 import com.benben.wordtutor.model.User;
+import com.benben.wordtutor.model.WUser;
 import com.benben.wordtutor.utils.Api;
 import com.benben.wordtutor.utils.DialogUtils;
 import com.bumptech.glide.Glide;
@@ -46,6 +47,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.bmob.v3.BmobUser;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
     private static final String TAG = "MainActivity";
@@ -175,10 +177,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 return;
             }
 
-            User user = new User(name,pass);
-            Api.userId = user.get_id();
-            User storeUser = userDao.login(user);
-            scoreDao.updateUserID(storeUser.get_id()+"");
+//            h: 修改成从缓存中获取当前用户数据178112212
+            WUser wUser = BmobUser.getCurrentUser(WUser.class);
+            //User user = new User(name,pass);
+            Api.userId = wUser.getId();
+            //User storeUser = userDao.login(user);
+            scoreDao.updateUserID(wUser.getId()+"");
             Log.d(TAG, "createScoreTable: 执行了创建成绩表...");
         }
 

@@ -18,7 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.benben.wordtutor.R;
 import com.benben.wordtutor.dao.UserDao;
 import com.benben.wordtutor.model.User;
+import com.benben.wordtutor.model.WUser;
 import com.orhanobut.hawk.Hawk;
+
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
@@ -122,22 +126,40 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      */
     private void requestRegister(String phone, String pass, String pass2) {
 
-//
-//
-        User user = new User(phone, pass);
-        User exitsBean = userDao.findByName(user);
-        if(exitsBean!=null){
-            showToast(getString(R.string.账户名已存在));
-            return;
-        }
+        WUser wUser=new WUser();
+        wUser.setUsername(phone);
+        wUser.setPassword(pass);
+        wUser.signUp(new SaveListener<WUser>() {
+            @Override
+            public void done(WUser wUser, BmobException e) {
+                if (e == null) {
+                    showToast(getString(R.string.注册成功));
+                    finish();
+                    //Snackbar.make(view, "注册成功", Snackbar.LENGTH_LONG).show();
+                } else {
+                    showToast(getString(R.string.注册失败));
+                   // Snackbar.make(view, "尚未失败：" + e.getMessage(), Snackbar.LENGTH_LONG).show();
+                }
+            }
+        });
 
-        long rowId = userDao.add(user);
-        if(rowId>0){
-            showToast(getString(R.string.注册成功));
-            finish();
-        }else{
-            showToast(getString(R.string.注册失败));
-        }
+
+////
+////
+//        User user = new User(phone, pass);
+//        User exitsBean = userDao.findByName(user);
+//        if(exitsBean!=null){
+//            showToast(getString(R.string.账户名已存在));
+//            return;
+//        }
+//
+//        long rowId = userDao.add(user);
+//        if(rowId>0){
+//            showToast(getString(R.string.注册成功));
+//            finish();
+//        }else{
+//            showToast(getString(R.string.注册失败));
+//        }
     }
 
     /**

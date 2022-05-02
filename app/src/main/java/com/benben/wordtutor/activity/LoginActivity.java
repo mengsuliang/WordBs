@@ -1,9 +1,11 @@
 package com.benben.wordtutor.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -15,9 +17,15 @@ import com.benben.wordtutor.dao.UserDao;
 
 import com.benben.wordtutor.R;
 import com.benben.wordtutor.model.User;
+import com.benben.wordtutor.model.WUser;
+import com.google.android.material.snackbar.Snackbar;
 import com.orhanobut.hawk.Hawk;
 
 import org.greenrobot.eventbus.EventBus;
+
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 
 public class LoginActivity extends BaseActivity implements  View.OnClickListener{
 
@@ -81,24 +89,44 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
                     return;
                 }
 
-                login(phone,pass);
+                login(this,phone,pass);
                 break;
         }
 
 
     }
 
-    private void login(String phone, String pass) {
-        User user = new User(phone, pass);
-        User login = userDao.login(user);
-        if(login!=null){
-            Hawk.put("userToken",phone+"-"+pass);
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }else{
-            showToast(getString(R.string.账户名不存在或密码错误));
-        }
+    private void login(Context context, String phone, String pass) {
+        WUser wUser=new WUser();
+        wUser.setUsername(phone);
+        wUser.setPassword(pass);
+        wUser.login(new SaveListener<WUser>() {
+            @Override
+            public void done(WUser user, BmobException e) {
+                if (e == null) {
+                    WUser wUser = BmobUser.getCurrentUser(WUser.class);
+                    Log.d("Test001", "done: "+wUser.getObjectId());
+                    Hawk.put("userToken",phone+"-"+pass);
+                    Intent intent = new Intent(context, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    showToast(getString(R.string.账户名不存在或密码错误));
+                }
+            }
+        });
+
+
+//        User user = new User(phone, pass);
+//        User login = userDao.login(user);
+//        if(login!=null){
+//            Hawk.put("userToken",phone+"-"+pass);
+//            Intent intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }else{
+//            showToast(getString(R.string.账户名不存在或密码错误));
+//        }
     }
 
     protected void showToast(String msg){

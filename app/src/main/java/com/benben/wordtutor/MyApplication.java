@@ -28,10 +28,13 @@ import org.litepal.LitePal;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.Bmob;
+
 public class MyApplication extends Application {
     private static final String TAG = "jyw";
     public static final String XMPUSH_APP_ID = "2882303761518326717";
     public static final String XMPUSH_APP_KEY = "5231832633717";
+    public static final String Bomb_APP_ID= "e1a07e9784e5ab8a35ca88c2abf20fac";
     private List<Fragment> fragments = new ArrayList<>();
     private static Context context;
     private Gson gson =new Gson();
@@ -44,6 +47,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        //默认初始化
+        Bmob.initialize(this, Bomb_APP_ID);
         Hawk.init(context).build();
         initMainFragment();
 
