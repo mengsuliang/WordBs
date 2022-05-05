@@ -1,6 +1,9 @@
 package com.benben.wordtutor.model;
+
+import cn.bmob.v3.BmobObject;
+
 //设置信息类
-public class Setting {
+public class Setting extends BmobObject {
     private int _id;        //Id
     private int sock;       //是否开启了锁屏背单词，0：否 1：是
     private String difficulty ;     //难度

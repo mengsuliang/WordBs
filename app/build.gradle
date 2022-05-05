@@ -138,11 +138,10 @@ dependencies {
     //引入文件选择器
     implementation 'com.hz.android.fileselectorview:library:1.3'
 
-    //引入EventBus
-    def eventbus_version = '3.2.0'
-    implementation "org.greenrobot:eventbus:$eventbus_version"
-    annotationProcessor "org.greenrobot:eventbus-annotation-processor:$eventbus_version"
-
+//    //引入EventBus
+//    def eventbus_version = '3.2.0'
+//    implementation "org.greenrobot:eventbus:$eventbus_version"
+//    annotationProcessor "org.greenrobot:eventbus-annotation-processor:$eventbus_version"
 
     //<导入bomb> 20220502
     implementation 'io.github.bmob:android-sdk:3.8.13'

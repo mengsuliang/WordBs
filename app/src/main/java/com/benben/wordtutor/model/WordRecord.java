@@ -1,7 +1,9 @@
 package com.benben.wordtutor.model;
 
+import cn.bmob.v3.BmobObject;
+
 //我的单词本实体类
-public class WordRecord {
+public class WordRecord extends BmobObject {
     private int _id;            //Id
     private int wordId;         //外键，对应单词表中的Id
     private int isFalse;        //错误次数，默认为0

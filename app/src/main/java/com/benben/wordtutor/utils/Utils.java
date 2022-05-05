@@ -1,6 +1,5 @@
 package com.benben.wordtutor.utils;
 
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -13,7 +12,6 @@ import android.graphics.RectF;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -23,7 +21,6 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 
 import com.benben.wordtutor.MyApplication;
-import com.benben.wordtutor.bean.ResponseBean;
 
 import com.google.gson.Gson;
 

@@ -3,9 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.benben.wordtutor">
 
-
-
-    <!-- 蓝牙权限 -->
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -32,9 +29,6 @@
             android:name=".activity.ChallengeWordActivity"
             android:launchMode="singleTop" />
         <activity android:name=".activity.RegisterActivity" /> <!-- 图片裁切 -->
-        <activity
-            android:name=".activity.UserBaseInfoActivity"
-            android:launchMode="singleTop" /> <!-- Image Selector Entry -->
         <activity
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
             android:configChanges="orientation|screenSize"

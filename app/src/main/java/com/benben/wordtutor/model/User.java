@@ -2,9 +2,10 @@ package com.benben.wordtutor.model;
 
 
 import java.io.Serializable;
+import cn.bmob.v3.BmobObject;
 
-//单词实体类
-public class User implements Serializable {
+//用户实体类
+public class User extends BmobObject implements Serializable {
     private int _id;
     private String username;
     private String password;
@@ -20,8 +21,8 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
     }
-    public User(String username, String password) {
 
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }

@@ -2,26 +2,24 @@ package com.benben.wordtutor.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.benben.wordtutor.bean.MessageEvent;
 import com.benben.wordtutor.dao.UserDao;
 
 import com.benben.wordtutor.R;
-import com.benben.wordtutor.model.User;
 import com.benben.wordtutor.model.WUser;
-import com.google.android.material.snackbar.Snackbar;
 import com.orhanobut.hawk.Hawk;
-
-import org.greenrobot.eventbus.EventBus;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -34,15 +32,19 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
 
     private UserDao userDao;
     private TextView mTvRegister, mTvLogin;
-    private EditText etPhone, etPass;
+    private EditText etAccount, etPass;
     private Toast toast;
+    private ImageView ivPwdSwitch; //密码隐藏
+    private Boolean bPwdSwitch = false;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_login);
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
-        etPhone = findViewById(R.id.et_phone);
+        etAccount = findViewById(R.id.et_account);
         etPass = findViewById(R.id.et_pass);
+        ivPwdSwitch = findViewById(R.id.iv_showPassword);
+        ivPwdSwitch.setOnClickListener(this);
 
         mTvRegister = findViewById(R.id.tv_register);
         mTvLogin = findViewById(R.id.tv_login);
@@ -50,7 +52,7 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
         mTvLogin.setOnClickListener(this);
 
         MyTextWatcher watcher = new MyTextWatcher();
-        etPhone.addTextChangedListener(watcher);
+        etAccount.addTextChangedListener(watcher);
         etPass.addTextChangedListener(watcher);
 
         userDao = new UserDao(this);
@@ -76,11 +78,11 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
                 startActivity(intent);
                 break;
             case R.id.tv_login:
-                String phone = etPhone.getText().toString().trim();
+                String account = etAccount.getText().toString().trim();
                 String pass = etPass.getText().toString().trim();
 
-                if(TextUtils.isEmpty(phone)){
-                    showToast(getString(R.string.请输入手机号));
+                if(TextUtils.isEmpty(account)){
+                    showToast(getString(R.string.请输入账号));
                     return;
                 }
 
@@ -89,7 +91,26 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
                     return;
                 }
 
-                login(this,phone,pass);
+                login(this,account,pass);
+                break;
+
+            //密码隐藏
+            case R.id.iv_showPassword:
+                bPwdSwitch = !bPwdSwitch;
+
+                if (bPwdSwitch){
+                    ivPwdSwitch.setImageResource(
+                            R.drawable.icon_eyes_show);
+                    etPass.setInputType(
+                            InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }else {
+                    ivPwdSwitch.setImageResource(
+                            R.drawable.icon_eyes_hidden);
+                    //普通文本类型|密码不可见
+                    etPass.setInputType(InputType.TYPE_CLASS_TEXT |
+                            InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    etPass.setTypeface(Typeface.DEFAULT);
+                }
                 break;
         }
 
@@ -111,7 +132,7 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
                     startActivity(intent);
                     finish();
                 } else {
-                    showToast(getString(R.string.账户名不存在或密码错误));
+                    showToast(getString(R.string.账号不存在或密码错误));
                 }
             }
         });
@@ -152,7 +173,7 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String phone = etPhone.getText().toString().trim();
+            String phone = etAccount.getText().toString().trim();
             String pass = etPass.getText().toString().trim();
 
             if(!TextUtils.isEmpty(phone)&&!TextUtils.isEmpty(pass)  && phone.length()>=11 && pass.length()>=6){

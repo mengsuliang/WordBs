@@ -107,7 +107,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                                 .setMessage(R.string.关于作者)
                                 .setIcon(R.drawable.ic_baseline_info_24)
                                 //点击对话框以外的区域是否让对话框消失
-                                .setCancelable(false)
+                                .setCancelable(true)
                                 //设置正面按钮
                                 .setPositiveButton("退出", new DialogInterface.OnClickListener() {
                                     @Override

@@ -92,7 +92,7 @@
     <string name="登录享受更多特权">登录享受更多特权</string>
 
     <string name="欢迎登录">欢迎登录</string>
-    <string name="请输入手机号">请输入手机号</string>
+    <string name="请输入账号">请输入账号</string>
     <string name="请输入密码">请输入密码</string>
     <string name="登录">登录</string>
     <string name="验证码登录">验证码登录</string>
@@ -179,8 +179,11 @@
     <string name="背单词">背单词</string>
 
 
-    <string name="账户名已存在">账户名已存在</string>
-    <string name="账户名不存在或密码错误">账户名不存在或密码错误</string>
+    <string name="账号已存在">账号已存在</string>
+    <string name="账号不存在或密码错误">账号不存在或密码错误</string>
+    <string name="账号不存在">账号不存在</string>
+    <string name="更新密码成功">更新密码成功</string>
+    <string name="更新密码失败">更新密码失败</string>
     <string name="词库">词库</string>
     <string name="复习">复习</string>
     <string name="背词">背词</string>
@@ -190,10 +193,6 @@
     <string name="上次最高成绩">上次最高成绩</string>
     <string name="开始挑战">开始挑战</string>
     <string name="恭喜您再创新高">恭喜您再创新高</string>
-    <string name="账户不存在">账户不存在</string>
-    <string name="更新密码成功">更新密码成功</string>
-    <string name="更新密码失败">更新密码失败</string>
-
     <string name="关于作者">本软件由1800300404蒙素靓进行制作，仅供学习交流使用，如有需要请联系作者本人，QQ：2504773400。</string>
 
 

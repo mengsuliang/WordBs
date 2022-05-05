@@ -1,6 +1,9 @@
 package com.benben.wordtutor.model;
 
-public class WordBookEntity {
+import cn.bmob.v3.BmobObject;
+
+//单词库实体类
+public class WordBookEntity extends BmobObject {
     public int imageResId;
     public String title;
     public int num;
