@@ -22,9 +22,18 @@ import com.benben.wordtutor.dao.StudyRecordDao;
 import com.benben.wordtutor.dao.WordDao;
 import com.benben.wordtutor.dao.WordRecordDao;
 import com.benben.wordtutor.model.Score;
+import com.benben.wordtutor.model.WScore;
+import com.benben.wordtutor.model.WUser;
 import com.benben.wordtutor.utils.Api;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 public class ChallengeFragment extends BaseFragment implements View.OnClickListener {
     private static final String TAG = "HomeFragment";
@@ -65,7 +74,7 @@ public class ChallengeFragment extends BaseFragment implements View.OnClickListe
         tvPreScore = view.findViewById(R.id.tv_prescore);
         challengePageImgView = view.findViewById(R.id.challenge_page);
 
-        initData();
+        initData(context);
         return view;
     }
 
@@ -74,23 +83,56 @@ public class ChallengeFragment extends BaseFragment implements View.OnClickListe
         return null;
     }
 
-    public void initData() {
-        Score score = scoreDao.find(Api.userId);
-        int maxScore = score.getMaxScore();
-        Api.maxScore = maxScore;
-        if(score.getMaxScore()<=0 && score.getPreScore()<=0){
-            llScore.setVisibility(View.GONE);
-        }else{
-            llScore.setVisibility(View.VISIBLE);
-            tvMaxScore.setText(score.getMaxScore()+"");
-            tvPreScore.setText(score.getPreScore()+"");
-        }
+    public void initData(Context context) {
 
+
+        WUser currentUser = BmobUser.getCurrentUser(WUser.class);
+        BmobQuery<WScore> wScoreQuery = new BmobQuery<>();
+        wScoreQuery.addWhereEqualTo("username",currentUser.getUsername());
+        wScoreQuery.findObjects(new FindListener<WScore>() {
+            @Override
+            public void done(List<WScore> list, BmobException e) {
+                WScore wScore = list.get(0);
+                int maxScore = wScore.getMaxScore();
+                Api.maxScore = maxScore;
+                Api.score_objectId = wScore.getObjectId();
+                if(wScore.getMaxScore()<=0 && wScore.getPreScore()<=0){
+                    llScore.setVisibility(View.GONE);
+                }else{
+                    llScore.setVisibility(View.VISIBLE);
+                    tvMaxScore.setText(wScore.getMaxScore()+"");
+                    tvPreScore.setText(wScore.getPreScore()+"");
+                }
+
+
+
+            }
+        });
         //加载挑战页GIF动图
-        Glide.with(this)
+        Glide.with(context)
                 .load(R.drawable.img_gif3)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .into(challengePageImgView);
+
+
+
+//
+//        Score score = scoreDao.find(Api.userId);
+//        int maxScore = score.getMaxScore();
+//        Api.maxScore = maxScore;
+//        if(score.getMaxScore()<=0 && score.getPreScore()<=0){
+//            llScore.setVisibility(View.GONE);
+//        }else{
+//            llScore.setVisibility(View.VISIBLE);
+//            tvMaxScore.setText(score.getMaxScore()+"");
+//            tvPreScore.setText(score.getPreScore()+"");
+//        }
+//
+//        //加载挑战页GIF动图
+//        Glide.with(this)
+//                .load(R.drawable.img_gif3)
+//                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+//                .into(challengePageImgView);
 
 //        String difficulty = settingDao.getDifficulty();
 //        int newNum = settingDao.getNewNum();
@@ -125,6 +167,6 @@ public class ChallengeFragment extends BaseFragment implements View.OnClickListe
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: 从挑战单词返回了...");
-        initData();
+        initData(context);
     }
 }

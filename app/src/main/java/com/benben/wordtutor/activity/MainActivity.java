@@ -29,6 +29,7 @@ import com.benben.wordtutor.dao.SettingDao;
 import com.benben.wordtutor.dao.UserDao;
 import com.benben.wordtutor.fragment.HomeFragment;
 import com.benben.wordtutor.model.User;
+import com.benben.wordtutor.model.WScore;
 import com.benben.wordtutor.model.WUser;
 import com.benben.wordtutor.utils.Api;
 import com.benben.wordtutor.utils.DialogUtils;
@@ -48,6 +49,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
     private static final String TAG = "MainActivity";
@@ -121,6 +124,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                         break;
                     case R.id.loginout:
                         Hawk.put("userToken","");
+                        BmobUser.logOut(); //Bomb登录退出178
                         drawerLayout.closeDrawer(Gravity.LEFT);
                         intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
@@ -156,8 +160,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         initApp();
 
         //查询用户并创建分数
-        userDao = new UserDao(this);
-        scoreDao = new ScoreDao(this);
+        //userDao = new UserDao(this);
+        //scoreDao = new ScoreDao(this);
         createScoreTable();
 
     }
@@ -165,26 +169,34 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     //创建成绩表
     private void createScoreTable() {
-        String userToken = Hawk.get("userToken");
-        if(!TextUtils.isEmpty(userToken)){
-            String[] split = userToken.split("-");
-            String name = split[0];
-            String pass = split[1];
-            if(TextUtils.isEmpty(name)){
-                return;
-            }
-            if(TextUtils.isEmpty(pass)){
-                return;
-            }
 
-//            h: 修改成从缓存中获取当前用户数据178112212
+        if (BmobUser.isLogin()){
             WUser wUser = BmobUser.getCurrentUser(WUser.class);
-            //User user = new User(name,pass);
             Api.userId = wUser.getId();
-            //User storeUser = userDao.login(user);
-            scoreDao.updateUserID(wUser.getId()+"");
-            Log.d(TAG, "createScoreTable: 执行了创建成绩表...");
         }
+
+
+
+//        String userToken = Hawk.get("userToken");
+//        if(!TextUtils.isEmpty(userToken)){
+//            String[] split = userToken.split("-");
+//            String name = split[0];
+//            String pass = split[1];
+//            if(TextUtils.isEmpty(name)){
+//                return;
+//            }
+//            if(TextUtils.isEmpty(pass)){
+//                return;
+//            }
+//
+////            h: 修改成从缓存中获取当前用户数据
+//            WUser wUser = BmobUser.getCurrentUser(WUser.class);
+//            //User user = new User(name,pass);
+//            Api.userId = wUser.getId();
+//            //User storeUser = userDao.login(user);
+//            scoreDao.updateUserID(wUser.getId()+"");
+//            Log.d(TAG, "createScoreTable: 执行了创建成绩表...");
+//        }
 
     }
 

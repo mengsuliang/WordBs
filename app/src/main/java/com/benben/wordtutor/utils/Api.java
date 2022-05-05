@@ -7,6 +7,8 @@ public class Api {
     public static String TOKEN = "";
     public static final String USER_TOKEN_KEY = "";
     public static final String USER_ID_KEY = "";
+    public static final String TB_SCORE="tb_score";
+    public static  String score_objectId="";
 /*
 以下属于api请求常量，可忽略
     public static final String api_getHomeMenu = ""; //查询菜单

@@ -21,6 +21,8 @@ import com.benben.wordtutor.dao.StudyRecordDao;
 import com.benben.wordtutor.dao.WordDao;
 import com.benben.wordtutor.dao.WordRecordDao;
 import com.benben.wordtutor.model.StudyRecord;
+import com.benben.wordtutor.model.WScore;
+import com.benben.wordtutor.model.WUser;
 import com.benben.wordtutor.model.Word;
 import com.benben.wordtutor.utils.Api;
 import com.benben.wordtutor.utils.AudioMediaPlayer;
@@ -32,6 +34,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
 
 public class ChallengeWordActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
     private static final String TAG = "MemoryWordMainActivity";
@@ -358,7 +364,27 @@ public class ChallengeWordActivity extends AppCompatActivity implements View.OnC
             mHandler.removeCallbacksAndMessages(null);
         }
         //更新成绩
-        scoreDao.update(Api.userId,currentScore);
+        //scoreDao.update(Api.userId,currentScore);
+
+
+        //更新成绩
+        WScore wScore = new WScore();
+        wScore.setUsername(BmobUser.getCurrentUser(WUser.class).getUsername());
+        //如果大于则进行更新
+        if (currentScore>Api.maxScore)
+            wScore.setMaxScore(currentScore);
+        wScore.setPreScore(currentScore);
+        wScore.update(Api.score_objectId,new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e != null)
+                    Log.d(TAG, "done: "+e.getMessage());
+            }
+        });
+
+
+
+
 
     }
 }
