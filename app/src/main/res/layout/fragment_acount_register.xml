@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="@string/请输入手机号"
+                android:hint="请输入手机号"
                 android:inputType="number"
                 android:lines="1"
                 android:textSize="@dimen/font_size_16" />

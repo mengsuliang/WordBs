@@ -1,4 +1,6 @@
-package com.benben.wordtutor.model;
+package com.benben.wordtutor.bean;
+
+import com.benben.wordtutor.model.Word;
 
 import java.util.List;
 

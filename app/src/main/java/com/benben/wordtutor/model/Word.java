@@ -1,10 +1,10 @@
 package com.benben.wordtutor.model;
 
-
 import java.io.Serializable;
+import cn.bmob.v3.BmobObject;
 
 //单词实体类
-public class Word implements Serializable {
+public class Word extends BmobObject implements Serializable {
     private int _id;        //单词编号
     private int wordRank;   //在本类型中的编号
     private String headWord; //单词
@@ -21,6 +21,7 @@ public class Word implements Serializable {
     public Word(){             //默认构造方法
         super();
     }
+
     //定义有参数构造方法，初始化信息实体中的字段
     public Word(String headWord, String sentences, String usphone, String ukphone, String syno, String phrases, String tranCN, String tranEN, String wordType){
         this.headWord = headWord;

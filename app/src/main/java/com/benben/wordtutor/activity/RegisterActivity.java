@@ -2,8 +2,10 @@ package com.benben.wordtutor.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -34,12 +36,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private static final String TAG = "RegisterActivity";
     public static final String USER_INFO = "userInfo";
-    private EditText etPhone,etPass,etPass2;
+    private EditText etAccount,etPass,etPass2;
     private TextView tvRegister,mTvTag;
     private Toast toast;
     private UserDao userDao;
     private String type;
     private ImageView ivBack;
+    private ImageView ivPwdSwitch1,ivPwdSwitch2; //密码隐藏
+    private Boolean bPwdSwitch = false,bPwdSwitch1 = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,15 +54,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mTvTag = findViewById(R.id.tag1);
         ivBack = findViewById(R.id.ivBack);
         ivBack.setOnClickListener(this);
-        etPhone = findViewById(R.id.et_phone);
+        etAccount = findViewById(R.id.et_account);
         etPass = findViewById(R.id.et_pass);
         etPass2 = findViewById(R.id.et_pass2);
         tvRegister = findViewById(R.id.tv_register);
-
+        ivPwdSwitch1 = findViewById(R.id.iv_showPassword);
+        ivPwdSwitch2 = findViewById(R.id.iv_showPassword1);
+        ivPwdSwitch1.setOnClickListener(this);
+        ivPwdSwitch2.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
 
         MyTextWatcher watcher = new MyTextWatcher();
-        etPhone.addTextChangedListener(watcher);
+        etAccount.addTextChangedListener(watcher);
         etPass.addTextChangedListener(watcher);
         etPass2.addTextChangedListener(watcher);
 
@@ -70,8 +77,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
             if (BmobUser.isLogin()){
-                etPhone.setText(BmobUser.getCurrentUser(WUser.class).getUsername());
-                etPhone.setEnabled(false);
+                etAccount.setText(BmobUser.getCurrentUser(WUser.class).getUsername());
+                etAccount.setEnabled(false);
             }else
                 return;
 //
@@ -92,6 +99,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //                etPhone.setEnabled(false);
 //                //etPhone.setKeyListener(null);
 
+                etAccount.setText(name);
 
 
         }
@@ -103,12 +111,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             case R.id.ivBack:
                 finish();
                 break;
+
             case R.id.tv_register:
-                String phone = etPhone.getText().toString().trim();
+                String account = etAccount.getText().toString().trim();
                 String pass = etPass.getText().toString().trim();
                 String pass2 = etPass2.getText().toString().trim();
-                if(TextUtils.isEmpty(phone)){
-                    showToast(getString(R.string.请输入手机号));
+                if(TextUtils.isEmpty(account)){
+                    showToast(getString(R.string.请输入账号));
                     return;
                 }
 
@@ -123,28 +132,64 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     return;
                 }
 
-
                 if("1".equals(type)){
-                    requestUpdatePass(this,pass);
+                    requestUpdatePass(account,pass,pass2);
                 }else{
-                    requestRegister(phone,pass,pass2);
+                    requestRegister(account,pass,pass2);
                 }
 
+                break;
 
+                //密码隐藏
+            case R.id.iv_showPassword:
+                bPwdSwitch = !bPwdSwitch;
+
+                if (bPwdSwitch){
+                    ivPwdSwitch1.setImageResource(
+                            R.drawable.icon_eyes_show);
+                    etPass.setInputType(
+                            InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }else {
+                    ivPwdSwitch1.setImageResource(
+                            R.drawable.icon_eyes_hidden);
+                    //普通文本类型|密码不可见
+                    etPass.setInputType(InputType.TYPE_CLASS_TEXT |
+                            InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    etPass.setTypeface(Typeface.DEFAULT);
+                }
+                break;
+
+            //密码隐藏
+            case R.id.iv_showPassword1:
+                bPwdSwitch1 = !bPwdSwitch1;
+
+                if (bPwdSwitch1){
+                    ivPwdSwitch2.setImageResource(
+                            R.drawable.icon_eyes_show);
+                    etPass2.setInputType(
+                            InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }else {
+                    ivPwdSwitch2.setImageResource(
+                            R.drawable.icon_eyes_hidden);
+                    //普通文本类型|密码不可见
+                    etPass2.setInputType(InputType.TYPE_CLASS_TEXT |
+                            InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    etPass2.setTypeface(Typeface.DEFAULT);
+                }
                 break;
         }
     }
 
     /**
      * 请求注册
-     * @param phone
+     * @param account
      * @param pass
      * @param pass2
      */
-    private void requestRegister(String phone, String pass, String pass2) {
+    private void requestRegister(String account, String pass, String pass2) {
 
         WUser wUser=new WUser();
-        wUser.setUsername(phone);
+        wUser.setUsername(account);
         wUser.setPassword(pass);
         wUser.signUp(new SaveListener<WUser>() {
             @Override
@@ -183,12 +228,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     /**
-     * 请求注册
-     * @param context
+     * 更新密码
+     * @param account
      * @param pass
      *
      */
     private void requestUpdatePass(Context context, String pass) {
+    private void requestUpdatePass(String account, String pass, String pass2) {
 
         WUser wUser = BmobUser.getCurrentUser(WUser.class);
         wUser.setPassword(pass);
@@ -197,6 +243,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void done(BmobException e) {
                 if (null == e){
                     showToast(getString(R.string.更新密码成功));
+        User user = new User(account, pass);
+        User exitsBean = userDao.findByName(user);
+        if(exitsBean==null){
+            showToast(getString(R.string.账号不存在));
+            return;
+        }
+
+        user.set_id(exitsBean.get_id());
+        long rowId = userDao.update(user);
+        if("1".equals(type)){
+            if(rowId>0){
+                showToast(getString(R.string.更新密码成功));
                 Intent intent = new Intent();
                 intent.setClass(context, LoginActivity.class);
                 startActivity(intent);
@@ -258,7 +316,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String phone = etPhone.getText().toString().trim();
+            String phone = etAccount.getText().toString().trim();
             String pass = etPass.getText().toString().trim();
             String pass2 = etPass2.getText().toString().trim();
 
@@ -304,4 +362,3 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
 }
-

@@ -1,11 +1,13 @@
 package com.benben.wordtutor.model;
-//设置信息类
-public class Score {
-    private int _id;        //Id
-    private int maxScore;       //
-    private int preScore;
-    private int userId;
 
+import cn.bmob.v3.BmobObject;
+
+//分数类
+public class Score extends BmobObject {
+    private int _id;        //Id
+    private int maxScore;   //历史最高成绩
+    private int preScore;   //上次最高成绩
+    private int userId;     //用户登录Id
 
     public Score(int maxScore, int preScore, int userId) {
         this.maxScore = maxScore;

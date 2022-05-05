@@ -1,8 +1,9 @@
 package com.benben.wordtutor.model;
 
-//记录实体类
+import cn.bmob.v3.BmobObject;
 
-public class StudyRecord {
+//记录实体类
+public class StudyRecord extends BmobObject {
     private int _id;        //Id
     private String date;    //日期
     private int newNum;    //今日已经背诵新单词数量
@@ -10,10 +11,12 @@ public class StudyRecord {
     private int needNewNum;  //今日需要背诵新单词的数量
     private int needRepeatNum; //今日需要复习的单词数量
     private String difficulty ;       //背单词难度类型
+
     //默认构造方法
     public StudyRecord(){             //默认构造方法
         super();
     }
+
     //定义有参数构造方法，初始化信息实体中的字段
     public StudyRecord(String date, int newNum, int repeatNum, int needNewNum, int needRepeatNum, String difficulty) {
         this.date = date;
@@ -33,7 +36,6 @@ public class StudyRecord {
         this.needRepeatNum = needRepeatNum;
         this.difficulty=difficulty;
     }
-
 
     public int get_id() {
         return _id;

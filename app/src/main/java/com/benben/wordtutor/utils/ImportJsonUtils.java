@@ -2,25 +2,21 @@ package com.benben.wordtutor.utils;
 
 
 import android.content.Context;
-import android.util.JsonReader;
 import android.util.Log;
 
 import com.benben.wordtutor.dao.WordDao;
 import com.benben.wordtutor.dao.WordTypeDao;
 import com.benben.wordtutor.model.Word;
 import com.benben.wordtutor.model.WordType;
-import com.benben.wordtutor.model.WordsBean;
+import com.benben.wordtutor.bean.WordsBean;
 import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.StringReader;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 1.转换json数据为符合格式的对象

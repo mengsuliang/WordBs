@@ -1,6 +1,8 @@
 package com.benben.wordtutor.model;
 
-public class WordType {
+import cn.bmob.v3.BmobObject;
+
+public class WordType extends BmobObject {
     private String wordType;//主键，单词类型
     private String context; //备注
     private int isSystem ;  //是否是系统的单词本类型

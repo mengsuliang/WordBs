@@ -1,37 +1,25 @@
 package com.benben.wordtutor.activity;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 
 import com.benben.wordtutor.R;
-import com.benben.wordtutor.bean.ResponseBean;
 import com.benben.wordtutor.listener.IDialogBtnClickCallBack;
 
 import com.benben.wordtutor.permission.ICheckPermissionCallBack;
 import com.benben.wordtutor.permission.PermissionUtils;
-import com.benben.wordtutor.utils.Api;
 import com.benben.wordtutor.utils.AuthUtils;
 import com.benben.wordtutor.utils.DialogUtils;
-import com.benben.wordtutor.utils.Utils;
 import com.orhanobut.hawk.Hawk;
 
 
@@ -80,9 +68,7 @@ public class SplashActivity extends BaseActivity {
     private void checkAppUpdate() {
         Log.d(TAG, "checkAppUpdate: 检查app更新...");
         mHandler.sendEmptyMessage(GO_MAIN);
-
     }
-
 
 
     public  void installApk(Context context, File file) throws Exception{
@@ -150,7 +136,6 @@ public class SplashActivity extends BaseActivity {
         fullScreen(this, false);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-
     }
 
     private void requestPermission() {
