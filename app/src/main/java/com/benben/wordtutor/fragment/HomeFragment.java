@@ -77,16 +77,26 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         String difficulty = settingDao.getDifficulty();
         int newNum = settingDao.getNewNum();
         int sockNum = settingDao.getSockNum();
+
+        //单词总数量
         int allWordCount = wordDao.getAllWordCount();
+        //
         int memoryTotalWordSize = wordRecordDao.getMemoryTotalWordSize();
         int typeReWordCount = wordRecordDao.getTypeReWordCount();
         Log.d(TAG, "onCreateView: 当前难度 == "+difficulty);
         mTvDifficalt.setText(difficulty);
+        // 展示总单词量
         mTvTotalNum.setText(""+allWordCount);
+
         mTvHasBack.setText(memoryTotalWordSize+"");
+
+
         StudyRecord studyRecord = studyRecordDao.addOrGet();
+        //日计划数目-总共学的单词数目
         int todayNeedNewNum = studyRecord.getNeedNewNum() - studyRecord.getNewNum();
+
         mTvNoStudy.setText(todayNeedNewNum +"");
+        //需复习的就是没有够5次的
         mTvNeedReview.setText(typeReWordCount+"");
 
         //加载首页GIF动图

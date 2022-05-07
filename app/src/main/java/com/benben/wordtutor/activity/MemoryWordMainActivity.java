@@ -27,6 +27,7 @@ import com.benben.wordtutor.utils.Sentence_split;
 import com.benben.wordtutor.utils.Tran_CN_split;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -98,7 +99,7 @@ public class MemoryWordMainActivity extends AppCompatActivity implements View.On
     }
 
     private void initData() {
-        mTvTitle.setText(getString(R.string.背单词));
+        //mTvTitle.setText(getString(R.string.背单词));
 
         start = wordRecordDao.getTypeStudyWordCount();//获取背过的该类单词数来定位开始位置
         //获取还需背诵的数量
@@ -110,6 +111,8 @@ public class MemoryWordMainActivity extends AppCompatActivity implements View.On
         mTodayNeedReviewCount.setText(todayNeedReviewcount+"");
         //获取需要新背的单词
         mWords = wordDao.getWords(start, todayNeedNewNum);
+
+
 
         getNextWord();
 

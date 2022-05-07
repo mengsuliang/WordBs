@@ -87,52 +87,49 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Intent intent;
-                switch(menuItem.getItemId()){
-                    case R.id.userINfo:
-                        Toast.makeText(MainActivity.this,"开发中…",Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.updatePass:
-                        intent = new Intent(MainActivity.this, RegisterActivity.class);
-                        intent.putExtra("type","1");
-                        startActivity(intent);
-                        break;
-                    case R.id.remind:
-                        intent = new Intent(MainActivity.this,AlarmActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.about:
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        builder.setTitle("关于作者")
-                                .setMessage(R.string.关于作者)
-                                .setIcon(R.drawable.ic_baseline_info_24)
-                                //点击对话框以外的区域是否让对话框消失
-                                .setCancelable(true)
-                                //设置正面按钮
-                                .setPositiveButton("退出", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                })
-                                //设置反面按钮
-                                //.setNegativeButton("-", null)
-                                .show();
-                        break;
-                    case R.id.loginout:
-                        Hawk.put("userToken","");
-                        BmobUser.logOut(); //Bomb登录退出178
-                        drawerLayout.closeDrawer(Gravity.LEFT);
-                        intent = new Intent(MainActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
-                        break;
-                }
-                return true;
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
+            Intent intent;
+            switch(menuItem.getItemId()){
+                case R.id.userINfo:
+                    Toast.makeText(MainActivity.this,"开发中…",Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.updatePass:
+                    intent = new Intent(MainActivity.this, RegisterActivity.class);
+                    intent.putExtra("type","1");
+                    startActivity(intent);
+                    break;
+                case R.id.remind:
+                    intent = new Intent(MainActivity.this,AlarmActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.about:
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("关于作者")
+                            .setMessage(R.string.关于作者)
+                            .setIcon(R.drawable.ic_baseline_info_24)
+                            //点击对话框以外的区域是否让对话框消失
+                            .setCancelable(true)
+                            //设置正面按钮
+                            .setPositiveButton("退出", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            //设置反面按钮
+                            //.setNegativeButton("-", null)
+                            .show();
+                    break;
+                case R.id.loginout:
+                    Hawk.put("userToken","");
+                    BmobUser.logOut(); //Bmob登录退出
+                    drawerLayout.closeDrawer(Gravity.LEFT);
+                    intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                    break;
             }
+            return true;
         });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -174,29 +171,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             WUser wUser = BmobUser.getCurrentUser(WUser.class);
             Api.userId = wUser.getId();
         }
-
-
-
-//        String userToken = Hawk.get("userToken");
-//        if(!TextUtils.isEmpty(userToken)){
-//            String[] split = userToken.split("-");
-//            String name = split[0];
-//            String pass = split[1];
-//            if(TextUtils.isEmpty(name)){
-//                return;
-//            }
-//            if(TextUtils.isEmpty(pass)){
-//                return;
-//            }
-//
-////            h: 修改成从缓存中获取当前用户数据
-//            WUser wUser = BmobUser.getCurrentUser(WUser.class);
-//            //User user = new User(name,pass);
-//            Api.userId = wUser.getId();
-//            //User storeUser = userDao.login(user);
-//            scoreDao.updateUserID(wUser.getId()+"");
-//            Log.d(TAG, "createScoreTable: 执行了创建成绩表...");
-//        }
 
     }
 

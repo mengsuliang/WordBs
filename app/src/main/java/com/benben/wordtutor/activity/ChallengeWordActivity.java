@@ -31,6 +31,7 @@ import com.benben.wordtutor.utils.Sentence_split;
 import com.benben.wordtutor.utils.Tran_CN_split;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -133,7 +134,8 @@ public class ChallengeWordActivity extends AppCompatActivity implements View.OnC
 
         //获取需要新背的单词
         mWords = wordDao.getWords(start, todayNeedNewNum);
-
+        //随机打乱单词
+        Collections.shuffle(mWords);
         getNextWord();
 
     }
@@ -363,8 +365,6 @@ public class ChallengeWordActivity extends AppCompatActivity implements View.OnC
         if(mHandler!=null){
             mHandler.removeCallbacksAndMessages(null);
         }
-        //更新成绩
-        //scoreDao.update(Api.userId,currentScore);
 
 
         //更新成绩
@@ -381,9 +381,6 @@ public class ChallengeWordActivity extends AppCompatActivity implements View.OnC
                     Log.d(TAG, "done: "+e.getMessage());
             }
         });
-
-
-
 
 
     }

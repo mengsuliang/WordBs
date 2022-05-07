@@ -78,6 +78,9 @@
                     android:layout_alignParentRight="true"
                     android:orientation="horizontal">
 
+
+
+
                     <TextView
                         style="@style/desc_text_style"
                         android:text="@string/已背单词" />

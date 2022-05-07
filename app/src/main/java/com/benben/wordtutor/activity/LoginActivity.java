@@ -137,17 +137,6 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
             }
         });
 
-
-//        User user = new User(phone, pass);
-//        User login = userDao.login(user);
-//        if(login!=null){
-//            Hawk.put("userToken",phone+"-"+pass);
-//            Intent intent = new Intent(this, MainActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }else{
-//            showToast(getString(R.string.账户名不存在或密码错误));
-//        }
     }
 
     protected void showToast(String msg){

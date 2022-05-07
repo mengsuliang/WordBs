@@ -114,40 +114,6 @@ public class ChallengeFragment extends BaseFragment implements View.OnClickListe
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .into(challengePageImgView);
 
-
-
-//
-//        Score score = scoreDao.find(Api.userId);
-//        int maxScore = score.getMaxScore();
-//        Api.maxScore = maxScore;
-//        if(score.getMaxScore()<=0 && score.getPreScore()<=0){
-//            llScore.setVisibility(View.GONE);
-//        }else{
-//            llScore.setVisibility(View.VISIBLE);
-//            tvMaxScore.setText(score.getMaxScore()+"");
-//            tvPreScore.setText(score.getPreScore()+"");
-//        }
-//
-//        //加载挑战页GIF动图
-//        Glide.with(this)
-//                .load(R.drawable.img_gif3)
-//                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-//                .into(challengePageImgView);
-
-//        String difficulty = settingDao.getDifficulty();
-//        int newNum = settingDao.getNewNum();
-//        int sockNum = settingDao.getSockNum();
-//        int allWordCount = wordDao.getAllWordCount();
-//        int memoryTotalWordSize = wordRecordDao.getMemoryTotalWordSize();
-//        int typeReWordCount = wordRecordDao.getTypeReWordCount();
-//        Log.d(TAG, "onCreateView: 当前难度 == "+difficulty);
-//        mTvDifficalt.setText(difficulty);
-//        mTvTotalNum.setText(""+allWordCount);
-//        mTvHasBack.setText(memoryTotalWordSize+"");
-//        StudyRecord studyRecord = studyRecordDao.addOrGet();
-//        int todayNeedNewNum = studyRecord.getNeedNewNum() - studyRecord.getNewNum();
-//        mTvNoStudy.setText(todayNeedNewNum +"");
-//        mTvNeedReview.setText(typeReWordCount+"");
     }
 
 
